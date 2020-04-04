@@ -38,10 +38,10 @@ public class MenuServiceImpl implements MenuService {
 
 
         MenuExample example = new MenuExample();
-        List<Integer> list = new ArrayList<>();
-        list.add(14);
-        list.add(15);
-        example.createCriteria().andIdIn(list);
+        List<String> list = new ArrayList<>();
+        list.add("视频模块");
+        list.add("收藏管理");
+        example.createCriteria().andTitleIn(list);
         List<Menu> menus = menuMapper.selectByExample (example);
         return menus;
     }

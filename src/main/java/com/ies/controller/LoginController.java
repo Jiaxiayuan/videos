@@ -10,6 +10,7 @@ import com.ies.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.imageio.ImageIO;
@@ -26,12 +27,17 @@ public class LoginController {
     private UserService userService;
 
     @RequestMapping("toLogin")
-    public String toLogin(){
+    public String toLogin() {
         return "system/main/login";
     }
 
+    @RequestMapping("toReg")
+    public String toReg() {
+        return "system/main/register";
+    }
+
     @RequestMapping("login")
-    public String login(UserVo userVo, Model model){
+    public String login(UserVo userVo, Model model) {
         Object obj = WebUtils.getHttpSession().getAttribute("code");
         if (obj == null) {
             return "system/main/login";
@@ -54,8 +60,19 @@ public class LoginController {
         }
 
     }
+
+    @RequestMapping("register")
+    public String register(UserVo userVo, Model model) {
+        userVo.setType(2);
+        String pwd = DigestUtils.md5DigestAsHex(userVo.getPassword().getBytes());
+        userVo.setPassword(pwd);
+        userService.addUser(userVo);
+        return "system/main/login";
+    }
+
     /**
      * 得到登陆验证码
+     *
      * @param response
      * @param session
      * @throws IOException
@@ -63,10 +80,10 @@ public class LoginController {
     @RequestMapping("getCode")
     public void getCode(HttpServletResponse response, HttpSession session) throws IOException {
         //定义图形验证码的长和宽
-        LineCaptcha lineCaptcha = CaptchaUtil.createLineCaptcha(116, 36,4,5);
-        session.setAttribute("code",lineCaptcha.getCode());
+        LineCaptcha lineCaptcha = CaptchaUtil.createLineCaptcha(116, 36, 4, 5);
+        session.setAttribute("code", lineCaptcha.getCode());
         ServletOutputStream outputStream = response.getOutputStream();
-        ImageIO.write(lineCaptcha.getImage(),"JPEG",outputStream);
+        ImageIO.write(lineCaptcha.getImage(), "JPEG", outputStream);
     }
 
 

@@ -1,19 +1,7 @@
 package com.ies.controller;
 
-import com.ies.domain.City;
-import com.ies.domain.Country;
-import com.ies.domain.Course;
-import com.ies.domain.School;
-import com.ies.mapper.CourseMapper;
-import com.ies.service.CityService;
-import com.ies.service.CountryService;
-import com.ies.service.SchoolService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
-
-import java.util.List;
 
 /**
  * 页面跳转控制器
@@ -21,14 +9,6 @@ import java.util.List;
 @Controller
 @RequestMapping("sys")
 public class SysController {
-    @Autowired
-    private SchoolService schoolService;
-    @Autowired
-    private CityService cityService;
-    @Autowired
-    private CountryService countryService;
-    @Autowired
-    private CourseMapper courseMapper;
 
     /**
      * 跳转到菜单管理

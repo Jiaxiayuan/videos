@@ -40,9 +40,18 @@ public class MenuController {
         if (user.getType() == SysConstast.USER_TYPE_SUPER) {
             list = menuService.queryAllMenuForList(menuVo);
             Iterator<Menu> it = list.iterator();
+            boolean find = false;
             while (it.hasNext()) {
-                if (it.next().getId() == 15) {
+                Menu menu = it.next();
+                if ("视频模块".equals(menu.getTitle())) {
                     it.remove();
+                }
+                if ("收藏管理".equals(menu.getTitle())) {
+                    if (find) {
+                        it.remove();
+                    } else {
+                        find = true;
+                    }
                 }
             }
         } else {
