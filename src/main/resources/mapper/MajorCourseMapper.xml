@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ies.mapper.MajorCourseMapper" >
+  <resultMap id="BaseResultMap" type="com.ies.domain.MajorCourse" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="schoolmajorid" property="schoolmajorid" jdbcType="INTEGER" />
+    <result column="courseid" property="courseid" jdbcType="INTEGER" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="grade" property="grade" jdbcType="VARCHAR" />
+    <result column="credit" property="credit" jdbcType="VARCHAR" />
+    <result column="term" property="term" jdbcType="VARCHAR" />
+    <result column="fraction" property="fraction" jdbcType="VARCHAR" />
+    <result column="task" property="task" jdbcType="VARCHAR" />
+    <result column="target" property="target" jdbcType="VARCHAR" />
+    <result column="gain" property="gain" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, schoolmajorid, courseid, description, grade, credit, term, fraction, task, target, 
+    gain
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ies.domain.MajorCourseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from major_course
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from major_course
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from major_course
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ies.domain.MajorCourseExample" >
+    delete from major_course
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ies.domain.MajorCourse" >
+    insert into major_course (id, schoolmajorid, courseid, 
+      description, grade, credit, 
+      term, fraction, task, 
+      target, gain)
+    values (#{id,jdbcType=INTEGER}, #{schoolmajorid,jdbcType=INTEGER}, #{courseid,jdbcType=INTEGER}, 
+      #{description,jdbcType=VARCHAR}, #{grade,jdbcType=VARCHAR}, #{credit,jdbcType=VARCHAR}, 
+      #{term,jdbcType=VARCHAR}, #{fraction,jdbcType=VARCHAR}, #{task,jdbcType=VARCHAR}, 
+      #{target,jdbcType=VARCHAR}, #{gain,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ies.domain.MajorCourse" >
+    insert into major_course
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="schoolmajorid != null" >
+        schoolmajorid,
+      </if>
+      <if test="courseid != null" >
+        courseid,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="grade != null" >
+        grade,
+      </if>
+      <if test="credit != null" >
+        credit,
+      </if>
+      <if test="term != null" >
+        term,
+      </if>
+      <if test="fraction != null" >
+        fraction,
+      </if>
+      <if test="task != null" >
+        task,
+      </if>
+      <if test="target != null" >
+        target,
+      </if>
+      <if test="gain != null" >
+        gain,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="schoolmajorid != null" >
+        #{schoolmajorid,jdbcType=INTEGER},
+      </if>
+      <if test="courseid != null" >
+        #{courseid,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null" >
+        #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="credit != null" >
+        #{credit,jdbcType=VARCHAR},
+      </if>
+      <if test="term != null" >
+        #{term,jdbcType=VARCHAR},
+      </if>
+      <if test="fraction != null" >
+        #{fraction,jdbcType=VARCHAR},
+      </if>
+      <if test="task != null" >
+        #{task,jdbcType=VARCHAR},
+      </if>
+      <if test="target != null" >
+        #{target,jdbcType=VARCHAR},
+      </if>
+      <if test="gain != null" >
+        #{gain,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ies.domain.MajorCourseExample" resultType="java.lang.Integer" >
+    select count(*) from major_course
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update major_course
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.schoolmajorid != null" >
+        schoolmajorid = #{record.schoolmajorid,jdbcType=INTEGER},
+      </if>
+      <if test="record.courseid != null" >
+        courseid = #{record.courseid,jdbcType=INTEGER},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.grade != null" >
+        grade = #{record.grade,jdbcType=VARCHAR},
+      </if>
+      <if test="record.credit != null" >
+        credit = #{record.credit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.term != null" >
+        term = #{record.term,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fraction != null" >
+        fraction = #{record.fraction,jdbcType=VARCHAR},
+      </if>
+      <if test="record.task != null" >
+        task = #{record.task,jdbcType=VARCHAR},
+      </if>
+      <if test="record.target != null" >
+        target = #{record.target,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gain != null" >
+        gain = #{record.gain,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update major_course
+    set id = #{record.id,jdbcType=INTEGER},
+      schoolmajorid = #{record.schoolmajorid,jdbcType=INTEGER},
+      courseid = #{record.courseid,jdbcType=INTEGER},
+      description = #{record.description,jdbcType=VARCHAR},
+      grade = #{record.grade,jdbcType=VARCHAR},
+      credit = #{record.credit,jdbcType=VARCHAR},
+      term = #{record.term,jdbcType=VARCHAR},
+      fraction = #{record.fraction,jdbcType=VARCHAR},
+      task = #{record.task,jdbcType=VARCHAR},
+      target = #{record.target,jdbcType=VARCHAR},
+      gain = #{record.gain,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ies.domain.MajorCourse" >
+    update major_course
+    <set >
+      <if test="schoolmajorid != null" >
+        schoolmajorid = #{schoolmajorid,jdbcType=INTEGER},
+      </if>
+      <if test="courseid != null" >
+        courseid = #{courseid,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null" >
+        grade = #{grade,jdbcType=VARCHAR},
+      </if>
+      <if test="credit != null" >
+        credit = #{credit,jdbcType=VARCHAR},
+      </if>
+      <if test="term != null" >
+        term = #{term,jdbcType=VARCHAR},
+      </if>
+      <if test="fraction != null" >
+        fraction = #{fraction,jdbcType=VARCHAR},
+      </if>
+      <if test="task != null" >
+        task = #{task,jdbcType=VARCHAR},
+      </if>
+      <if test="target != null" >
+        target = #{target,jdbcType=VARCHAR},
+      </if>
+      <if test="gain != null" >
+        gain = #{gain,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ies.domain.MajorCourse" >
+    update major_course
+    set schoolmajorid = #{schoolmajorid,jdbcType=INTEGER},
+      courseid = #{courseid,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      grade = #{grade,jdbcType=VARCHAR},
+      credit = #{credit,jdbcType=VARCHAR},
+      term = #{term,jdbcType=VARCHAR},
+      fraction = #{fraction,jdbcType=VARCHAR},
+      task = #{task,jdbcType=VARCHAR},
+      target = #{target,jdbcType=VARCHAR},
+      gain = #{gain,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
